@@ -21,9 +21,24 @@ namespace Radia_Katolickie
 
         private string StationName = "Radio Maryja";
 
+        private BitmapImage MaryjaLogoLight,
+                            ViaLogoLight,
+                            NiepokalanowLogoLight,
+                            ProfetoLogoLight,
+                            NadziejaLogoLight,
+                            GlosLogoLight,
+
+                            MaryjaLogoDark,
+                            ViaLogoDark,
+                            NiepokalanowLogoDark,
+                            ProfetoLogoDark,
+                            NadziejaLogoDark,
+                            GlosLogoDark;
+
         public MainPage()
         {
             InitializeComponent();
+            LoadImages();
             ChangeThemeLogo();
             CheckInternetConnection();
 
@@ -37,24 +52,43 @@ namespace Radia_Katolickie
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
 
+        private void LoadImages()
+        {
+            MaryjaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoLight.png"));
+            ViaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoLight.png"));
+            NiepokalanowLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoLight.png"));
+            ProfetoLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Profeto/Profeto-logoLight.png"));
+            NadziejaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Nadzieja/Nadzieja-logoLight.png"));
+            GlosLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Glos/Glos-logoLight.png"));
+
+            MaryjaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoDark.png"));
+            ViaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoDark.png"));
+            NiepokalanowLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoDark.png"));
+            ProfetoLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Profeto/Profeto-logoDark.png"));
+            NadziejaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Nadzieja/Nadzieja-logoDark.png"));
+            GlosLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Glos/Glos-logoDark.png"));
+        }
+
         private void ChangeThemeLogo()
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                MaryjaLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoLight.png"));
-                ViaLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoLight.png"));            
-                NiepokalanowLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoLight.png"));
-                ProfetoLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Profeto/Profeto-logoLight.png"));
-                NadziejaLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Nadzieja/Nadzieja-logoLight.png"));
+                MaryjaLogo.Source = MaryjaLogoLight;
+                ViaLogo.Source = ViaLogoLight;            
+                NiepokalanowLogo.Source = NiepokalanowLogoLight;
+                ProfetoLogo.Source = ProfetoLogoLight;
+                NadziejaLogo.Source = NadziejaLogoLight;
+                GlosLogo.Source = GlosLogoLight;
             }
 
             else
             {
-                MaryjaLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoDark.png"));
-                ViaLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoDark.png"));
-                NiepokalanowLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoDark.png"));
-                ProfetoLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Profeto/Profeto-logoDark.png"));
-                NadziejaLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Nadzieja/Nadzieja-logoDark.png"));
+                MaryjaLogo.Source = MaryjaLogoDark;
+                ViaLogo.Source = ViaLogoDark;
+                NiepokalanowLogo.Source = NiepokalanowLogoDark;
+                ProfetoLogo.Source = ProfetoLogoDark;
+                NadziejaLogo.Source = NadziejaLogoDark;
+                GlosLogo.Source = GlosLogoDark;
             }
         }
 
@@ -100,7 +134,7 @@ namespace Radia_Katolickie
 
         private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
-            args.Request.Data.SetWebLink(new Uri("https://tinyurl.com/DonateMohairApps"));
+            args.Request.Data.SetWebLink(new Uri("https://www.microsoft.com/store/apps/9NTP1FNVNHMW"));
             args.Request.Data.Properties.Title = "Radia Katolickie";
             args.Request.Data.Properties.Description = "Aplikacja 'Radia Katolickie' umożliwia odtwarzanie stacji katolickich przez internet.";
             args.Request.Data.SetText("Apliakcja Radia Katolickie z Twoimi ulubionymi stacjami! Już teraz do pobrania z Microsoft Store na wszystkie urządzenia z Windows 10!");
@@ -178,7 +212,7 @@ namespace Radia_Katolickie
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenMessageDialog("Aplikacja stworzona przez Kacpra Trynieckiego.\nStworzona w UWP, przy użyciu języka C# i technologii XAML. \nv1.0.4", "Radia Katolickie");
+            OpenMessageDialog("Aplikacja stworzona przez Kacpra Trynieckiego.\nStworzona w UWP, przy użyciu języka C# i technologii XAML. \nv1.1.0.0", "Radia Katolickie");
         }
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
@@ -291,6 +325,11 @@ namespace Radia_Katolickie
                     Source = "http://s5.radiohost.pl:8600/";
                     mediaElement.Source = new Uri(Source);
                     break;
+                case "Radio Głos":
+                    StationName = "Radio Głos";
+                    Source = "http://87.204.92.180:8000/";
+                    mediaElement.Source = new Uri(Source);
+                    break;
             }
         }
 
@@ -298,10 +337,5 @@ namespace Radia_Katolickie
         {
             ChangeThemeLogo();
         }
-
-        /*private void PhonePageButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MaryjaPhonePage));
-        }*/
     }
 }
