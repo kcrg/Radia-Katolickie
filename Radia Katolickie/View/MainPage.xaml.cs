@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.Email;
+using Windows.ApplicationModel.Store;
 using Windows.Media;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -50,6 +53,18 @@ namespace Radia_Katolickie
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+
+            // Check if it is supported
+            if (ApplicationView.GetForCurrentView().IsViewModeSupported(ApplicationViewMode.CompactOverlay))
+            {
+                MiniButton.Visibility = Visibility.Visible;
+                MaxButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MiniButton.Visibility = Visibility.Collapsed;
+                MaxButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void LoadImages()
@@ -120,7 +135,7 @@ namespace Radia_Katolickie
             PauseButton.IsEnabled = false;
         }
 
-        private async void OpenInBrowser(string url)
+        private async void LauncherUri(string url)
         {
             var uriBing = new Uri(@url);
             await Launcher.LaunchUriAsync(uriBing);
@@ -137,7 +152,7 @@ namespace Radia_Katolickie
             args.Request.Data.SetWebLink(new Uri("https://www.microsoft.com/store/apps/9NTP1FNVNHMW"));
             args.Request.Data.Properties.Title = "Radia Katolickie";
             args.Request.Data.Properties.Description = "Aplikacja 'Radia Katolickie' umożliwia odtwarzanie stacji katolickich przez internet.";
-            args.Request.Data.SetText("Apliakcja Radia Katolickie z Twoimi ulubionymi stacjami! Już teraz do pobrania z Microsoft Store na wszystkie urządzenia z Windows 10!");
+            args.Request.Data.SetText("Aplikacja 'Radia Katolickie' umożliwia odtwarzanie stacji katolickich przez internet. Już teraz do pobrania z Microsoft Store na wszystkie urządzenia z Windows 10!");
         }
 
         private void MediaElementStateChanged(object sender, RoutedEventArgs e)
@@ -181,8 +196,6 @@ namespace Radia_Katolickie
             }           
         }
 
-        /////////////////////////// APPBAR BUTTONS ///////////////////////////////////////   
-
         private void EnterDown(object sender, KeyRoutedEventArgs e)
         {
             if (mediaElement.CurrentState == MediaElementState.Playing)
@@ -195,6 +208,8 @@ namespace Radia_Katolickie
             }
         }
 
+        /////////////////////////// APPBAR BUTTONS ///////////////////////////////////////   
+
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             PlayMedia();
@@ -203,6 +218,53 @@ namespace Radia_Katolickie
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             PauseMedia();
+        }
+
+        private async void MiniButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+            compactOptions.CustomSize = new Windows.Foundation.Size(400, 400);
+            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+
+            StatusTextBlock.Visibility = Visibility.Collapsed;
+            commandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Bottom;
+            MiniButton.Visibility = Visibility.Collapsed;
+            MaxButton.Visibility = Visibility.Visible;
+
+            commandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Collapsed;
+
+        }
+
+        private async void MaxButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+
+            StatusTextBlock.Visibility = Visibility.Visible;
+            commandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right;
+            MiniButton.Visibility = Visibility.Visible;
+            MaxButton.Visibility = Visibility.Collapsed;
+
+            commandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Visible;
+        }
+
+        private async void RateButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=" + CurrentApp.AppId));
+        }
+
+        private void FacebookButton_Click(object sender, RoutedEventArgs e)
+        {
+            LauncherUri("https://www.facebook.com/MohairApps/");
+        }
+
+        private async void EmailButton_Click(object sender, RoutedEventArgs e)
+        {
+            EmailMessage mail = new EmailMessage
+            {
+                Subject = "[Radia Katolickie] Kontakt z developerem"
+            };
+            mail.To.Add(new EmailRecipient("mohairapp@hotmail.com", "MohairApps"));
+            await EmailManager.ShowComposeNewEmailAsync(mail);
         }
 
         private void ShareButton_Click(object sender, RoutedEventArgs e)
@@ -217,12 +279,12 @@ namespace Radia_Katolickie
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenInBrowser("https://www.facebook.com/MohairApps/");
+            LauncherUri(string.Format(@"ms-windows-store:search?keyword={0}", "MohairApps"));
         }
 
         private void DonationButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenInBrowser("https://tinyurl.com/DonateMohairApps");
+            LauncherUri("https://tinyurl.com/DonateMohairApps");
         }
 
         ////////////////////////////////////////// BACKGROUND AUDIO //////////////////////////////////////////////

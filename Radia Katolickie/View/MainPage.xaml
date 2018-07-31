@@ -7,18 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Page.BottomAppBar>
-        <CommandBar DefaultLabelPosition="Right" Background="Transparent">
+        <CommandBar x:Name="commandBar" DefaultLabelPosition="Right" Background="Transparent">
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="PlayButton" Icon="Play" Label="Odtwórz" Click="PlayButton_Click"/>
                 <AppBarButton x:Name="PauseButton" Icon="Pause" Label="Zapauzuj" Click="PauseButton_Click"/>
                 <AppBarSeparator/>
+                <AppBarButton x:Name="MiniButton" Icon="BackToWindow" Label="Mini odtwarzacz" Click="MiniButton_Click"/>
+                <AppBarButton x:Name="MaxButton" Icon="FullScreen" Label="Domyślny odtwarzacz" Click="MaxButton_Click"/>
             </CommandBar.PrimaryCommands>
 
             <CommandBar.SecondaryCommands>
                 <AppBarButton Icon="Share" Label="Udostępnij aplikację" Click="ShareButton_Click"/>
+                <AppBarButton Icon="OutlineStar" Label="Oceń aplikację" Click="RateButton_Click"/>
+                <AppBarButton Icon="SwitchApps" Label="Więcej moich aplikacji" Click="MoreButton_Click"/>
                 <AppBarButton Icon="AllApps" Label="Informacje o aplikacji" Click="InfoButton_Click"/>
                 <AppBarSeparator/>
-                <AppBarButton Icon="SwitchApps" Label="Więcej moich aplikacji" Click="MoreButton_Click"/>
+                <AppBarButton Icon="Mail" Label="Wyślij opinie" Click="EmailButton_Click"/>
+                <AppBarButton Icon="Like" Label="Fanpage na facebooku" Click="FacebookButton_Click"/>
                 <AppBarButton Icon="Send" Label="Wyślij donacje &lt;3" Click="DonationButton_Click"/>
             </CommandBar.SecondaryCommands>
 
