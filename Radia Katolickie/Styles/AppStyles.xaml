@@ -18,11 +18,4 @@
         <Setter Property="IsIndeterminate" Value="True"/>
         <Setter Property="Height" Value="5"/>
     </Style>
-
-    <!--                     BUTTONS                 -->
-    <Style x:Key="BasicButton" TargetType="ProgressBar">
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
-        <Setter Property="Width" Value="250"/>
-    </Style>
 </ResourceDictionary>

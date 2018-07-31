@@ -274,7 +274,7 @@ namespace Radia_Katolickie
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenMessageDialog("Aplikacja stworzona przez Kacpra Trynieckiego.\nStworzona w UWP, przy użyciu języka C# i technologii XAML. \nv1.1.0.0", "Radia Katolickie");
+            OpenMessageDialog("Aplikacja stworzona przez Kacpra Trynieckiego.\nStworzona w UWP, przy użyciu języka C# i technologii XAML. \nv1.2.0.0", "Radia Katolickie");
         }
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
