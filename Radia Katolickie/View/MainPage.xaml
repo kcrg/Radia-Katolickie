@@ -41,7 +41,7 @@
                 <AppBarSeparator/>
                 <AppBarButton Icon="Mail" Label="Wyślij opinie" Click="EmailButton_Click"/>
                 <AppBarButton Icon="Like" Label="Fanpage na facebooku" Click="FacebookButton_Click"/>
-                <AppBarButton Icon="Send" Label="Wyślij donacje &lt;3" Click="DonationButton_Click"/>
+                <AppBarButton Icon="Send" Label="Wesprzyj nas &lt;3" Click="DonationButton_Click"/>
             </CommandBar.SecondaryCommands>
 
             <CommandBar.Content>

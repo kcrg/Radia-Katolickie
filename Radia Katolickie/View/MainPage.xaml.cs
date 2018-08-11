@@ -280,7 +280,7 @@ namespace Radia_Katolickie
             {
                 Subject = "[Radia Katolickie] Kontakt z developerem"
             };
-            mail.To.Add(new EmailRecipient("mohairapp@hotmail.com", "MohairApps"));
+            mail.To.Add(new EmailRecipient("mohairapp@hotmail.com", "Versatile Software"));
             await EmailManager.ShowComposeNewEmailAsync(mail);
         }
 

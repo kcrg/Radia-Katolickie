@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="cf23fc9d-f033-4c75-819f-49d1d7e67fe4" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Radia Katolickie</DisplayName>
-    <PublisherDisplayName>MohairApps</PublisherDisplayName>
+    <PublisherDisplayName>Versatile Software</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
