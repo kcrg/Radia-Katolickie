@@ -115,6 +115,8 @@
     <None Include="Radia Katolickie_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\Radio Fara\Fara-logoDark.png" />
+    <Content Include="Assets\Images\Radio Fara\Fara-logoLight.png" />
     <Content Include="Assets\Images\Radio Glos\Glos-logoDark.png" />
     <Content Include="Assets\Images\Radio Glos\Glos-logoLight.png" />
     <Content Include="Assets\Images\Radio Maryja\Maryja-logoDark.png" />
@@ -128,6 +130,8 @@
     <Content Include="Assets\Images\Radio Via\Via-logoDark.png" />
     <Content Include="Assets\Images\Radio Via\Via-logoLight.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Images\Radio Zamosc\Zamosc-logoDark.png" />
+    <Content Include="Assets\Images\Radio Zamosc\Zamosc-logoLight.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />

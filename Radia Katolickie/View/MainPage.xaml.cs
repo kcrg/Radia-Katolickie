@@ -21,8 +21,9 @@ namespace Radia_Katolickie
         private SystemMediaTransportControls systemControls;
 
         private string Source = "http://198.27.80.205:5946/stream";
-
         private string StationName = "Radio Maryja";
+
+        private string RadioPageUri = "http://www.radiomaryja.pl/";
 
         private BitmapImage MaryjaLogoLight,
                             ViaLogoLight,
@@ -30,13 +31,17 @@ namespace Radia_Katolickie
                             ProfetoLogoLight,
                             NadziejaLogoLight,
                             GlosLogoLight,
+                            FaraLogoLight,
+                            ZamoscLogoLight,
 
                             MaryjaLogoDark,
                             ViaLogoDark,
                             NiepokalanowLogoDark,
                             ProfetoLogoDark,
                             NadziejaLogoDark,
-                            GlosLogoDark;
+                            GlosLogoDark,
+                            FaraLogoDark,
+                            ZamoscLogoDark;
 
         public MainPage()
         {
@@ -75,6 +80,8 @@ namespace Radia_Katolickie
             ProfetoLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Profeto/Profeto-logoLight.png"));
             NadziejaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Nadzieja/Nadzieja-logoLight.png"));
             GlosLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Glos/Glos-logoLight.png"));
+            FaraLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Fara/Fara-logoLight.png"));
+            ZamoscLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Zamosc/Zamosc-logoLight.png"));
 
             MaryjaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoDark.png"));
             ViaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoDark.png"));
@@ -82,6 +89,8 @@ namespace Radia_Katolickie
             ProfetoLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Profeto/Profeto-logoDark.png"));
             NadziejaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Nadzieja/Nadzieja-logoDark.png"));
             GlosLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Glos/Glos-logoDark.png"));
+            FaraLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Fara/Fara-logoDark.png"));
+            ZamoscLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Zamosc/Zamosc-logoDark.png"));
         }
 
         private void ChangeThemeLogo()
@@ -94,6 +103,8 @@ namespace Radia_Katolickie
                 ProfetoLogo.Source = ProfetoLogoLight;
                 NadziejaLogo.Source = NadziejaLogoLight;
                 GlosLogo.Source = GlosLogoLight;
+                FaraLogo.Source = FaraLogoLight;
+                ZamoscLogo.Source = ZamoscLogoLight;
             }
 
             else
@@ -104,6 +115,8 @@ namespace Radia_Katolickie
                 ProfetoLogo.Source = ProfetoLogoDark;
                 NadziejaLogo.Source = NadziejaLogoDark;
                 GlosLogo.Source = GlosLogoDark;
+                FaraLogo.Source = FaraLogoDark;
+                ZamoscLogo.Source = ZamoscLogoDark;
             }
         }
 
@@ -223,16 +236,20 @@ namespace Radia_Katolickie
         private async void MiniButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-            compactOptions.CustomSize = new Windows.Foundation.Size(400, 400);
+            compactOptions.CustomSize = new Windows.Foundation.Size(400, 160);
             bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
 
             StatusTextBlock.Visibility = Visibility.Collapsed;
-            commandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Bottom;
+            BottomCommandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Bottom;
             MiniButton.Visibility = Visibility.Collapsed;
             MaxButton.Visibility = Visibility.Visible;
 
-            commandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Collapsed;
+            BottomCommandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Collapsed;
+        }
 
+        private void RadioPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            LauncherUri(RadioPageUri);
         }
 
         private async void MaxButton_Click(object sender, RoutedEventArgs e)
@@ -240,11 +257,11 @@ namespace Radia_Katolickie
             bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
 
             StatusTextBlock.Visibility = Visibility.Visible;
-            commandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right;
+            BottomCommandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right;
             MiniButton.Visibility = Visibility.Visible;
             MaxButton.Visibility = Visibility.Collapsed;
 
-            commandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Visible;
+            BottomCommandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Visible;
         }
 
         private async void RateButton_Click(object sender, RoutedEventArgs e)
@@ -270,11 +287,6 @@ namespace Radia_Katolickie
         private void ShareButton_Click(object sender, RoutedEventArgs e)
         {
             DataTransferManager.ShowShareUI();
-        }
-
-        private void InfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenMessageDialog("Aplikacja stworzona przez Kacpra Trynieckiego.\nStworzona w UWP, przy użyciu języka C# i technologii XAML. \nv1.2.0.0", "Radia Katolickie");
         }
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
@@ -366,31 +378,49 @@ namespace Radia_Katolickie
                     StationName = "Radio Maryja";
                     Source = "http://198.27.80.205:5946/stream";
                     mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://www.radiomaryja.pl/";
                     break;
                 case "Radio Via":
                     StationName = "Radio Via";
                     Source = "http://62.133.128.18:8040/";
                     mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://radiovia.com.pl/";
                     break;
                 case "Radio Niepokalanów":
                     StationName = "Radio Niepokalanów";
                     Source = "http://88.199.169.10:7600/rn.mp3";
                     mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://radioniepokalanow.pl/";
                     break;
                 case "Radio Profeto":
                     StationName = "Radio Profeto";
                     Source = "http://151.80.24.114:80/streammq.mp3";
                     mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://radioprofeto.pl/";
                     break;
                 case "Radio Nadzieja":
                     StationName = "Radio Nadzieja";
                     Source = "http://s5.radiohost.pl:8600/";
                     mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "https://radionadzieja.pl/";
                     break;
                 case "Radio Głos":
                     StationName = "Radio Głos";
                     Source = "http://87.204.92.180:8000/";
                     mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://www.radioglos.pl/";
+                    break;
+                case "Radio Fara":
+                    StationName = "Radio Fara";
+                    Source = "http://62.133.128.22:8000/";
+                    mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://przemyska.pl/radiofara/";
+                    break;
+                case "Katolickie Radio Zamość":
+                    StationName = "Katolickie Radio Zamość";
+                    Source = "http://posluchaj.krz.pl/";
+                    mediaElement.Source = new Uri(Source);
+                    RadioPageUri = "http://www.radiozamosc.pl/";
                     break;
             }
         }
