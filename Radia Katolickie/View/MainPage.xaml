@@ -34,7 +34,7 @@
                                     <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
-                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;v1.2.1.0"/>
+                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.2.2.0"/>
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton>

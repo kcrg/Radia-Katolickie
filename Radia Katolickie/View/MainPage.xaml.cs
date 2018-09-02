@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Radia_Katolickie.View.MessageDialoges;
+using System;
 using System.Net.NetworkInformation;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
@@ -120,13 +121,14 @@ namespace Radia_Katolickie
             }
         }
 
-        private void CheckInternetConnection()
+        private async void CheckInternetConnection()
         {
             bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
 
             if (isInternetConnected == false)
             {
-                OpenMessageDialog("Aby aplikacja działała, wymagane jest połączenie z internetem.", "Brak połączenia z internetem.");
+                ConnectionDialog Dialog = new ConnectionDialog();
+                await Dialog.ShowAsync();
             }           
         }
 
@@ -152,12 +154,6 @@ namespace Radia_Katolickie
         {
             var uriBing = new Uri(@url);
             await Launcher.LaunchUriAsync(uriBing);
-        }
-
-        private async void OpenMessageDialog(string message, string title)
-        {
-            var dialog = new MessageDialog(message, title);
-            await dialog.ShowAsync();
         }
 
         private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -264,14 +260,14 @@ namespace Radia_Katolickie
             BottomCommandBar.OverflowButtonVisibility = CommandBarOverflowButtonVisibility.Visible;
         }
 
-        private async void RateButton_Click(object sender, RoutedEventArgs e)
+        private void RateButton_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=" + CurrentApp.AppId));
+            LauncherUri("ms-windows-store:reviewapp?appid=" + CurrentApp.AppId);
         }
 
         private void FacebookButton_Click(object sender, RoutedEventArgs e)
         {
-            LauncherUri("https://www.facebook.com/MohairApps/");
+            LauncherUri("https://www.facebook.com/VersatileSoftware");
         }
 
         private async void EmailButton_Click(object sender, RoutedEventArgs e)
@@ -291,7 +287,7 @@ namespace Radia_Katolickie
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            LauncherUri(string.Format(@"ms-windows-store:search?keyword={0}", "MohairApps"));
+            LauncherUri(string.Format(@"ms-windows-store:publisher?name={0}", "Versatile Software"));
         }
 
         private void DonationButton_Click(object sender, RoutedEventArgs e)
