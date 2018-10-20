@@ -34,7 +34,7 @@
                                     <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
-                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.2.3.0"/>
+                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.2.4.0"/>
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton>
@@ -45,7 +45,7 @@
             </CommandBar.SecondaryCommands>
 
             <CommandBar.Content>
-                <TextBlock x:Name="StatusTextBlock" Margin="12,8"/>
+                <TextBlock x:Name="StatusTextBlock" Margin="12,10"/>
             </CommandBar.Content>
 
             <CommandBar.CommandBarOverflowPresenterStyle>
