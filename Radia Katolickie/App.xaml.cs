@@ -64,7 +64,7 @@ namespace Radia_Katolickie
             // Ensure the current window is active
             Window.Current.Activate();
         }
-       
+
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>

@@ -66,7 +66,7 @@
 
     <Grid>
         <MediaElement x:Name="mediaElement" AudioCategory="BackgroundCapableMedia" AutoPlay="False" CurrentStateChanged="MediaElementStateChanged"/>
-        
+
         <Pivot Title="Radia Katolickie"  Margin="0,-5,0,5" SelectionChanged="Pivot_SelectionChanged" KeyDown="EnterDown" Tapped="Pivot_Tapped">
             <PivotItem Header="Radio Maryja">
                 <Grid>
@@ -103,7 +103,7 @@
                     <Image x:Name="ViaLogo" Style="{StaticResource BasicImage}"/>
                 </Grid>
             </PivotItem>
-            
+
             <PivotItem Header="Radio Fara">
                 <Grid>
                     <Image x:Name="FaraLogo" Style="{StaticResource BasicImage}"/>

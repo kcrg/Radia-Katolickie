@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
- 
+
     <!--                     IMAGES                -->
     <Style x:Key="BasicImage" TargetType="Image">
         <Setter Property="Margin" Value="0,20,0,20"/>
@@ -11,7 +11,7 @@
         <Setter Property="MaxWidth" Value="350"/>
         <Setter Property="MaxHeight" Value="250"/>
     </Style>
-    
+
     <!--                     PROGRESSBARS                 -->
     <Style x:Key="BasicProgressBar" TargetType="ProgressBar">
         <Setter Property="VerticalAlignment" Value="Bottom"/>

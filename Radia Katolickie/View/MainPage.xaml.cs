@@ -98,7 +98,7 @@ namespace Radia_Katolickie
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 MaryjaLogo.Source = MaryjaLogoLight;
-                ViaLogo.Source = ViaLogoLight;            
+                ViaLogo.Source = ViaLogoLight;
                 NiepokalanowLogo.Source = NiepokalanowLogoLight;
                 ProfetoLogo.Source = ProfetoLogoLight;
                 NadziejaLogo.Source = NadziejaLogoLight;
@@ -128,7 +128,7 @@ namespace Radia_Katolickie
             {
                 ConnectionDialog Dialog = new ConnectionDialog();
                 await Dialog.ShowAsync();
-            }           
+            }
         }
 
         private void LoadingBarVisible(string status)
@@ -142,7 +142,7 @@ namespace Radia_Katolickie
 
         private void LoadingBarCollapsed(string status)
         {
-           LoadingBar.Visibility = Visibility.Collapsed;
+            LoadingBar.Visibility = Visibility.Collapsed;
 
             StatusTextBlock.Text = StationName + status;
             PlayButton.IsEnabled = true;
@@ -195,13 +195,13 @@ namespace Radia_Katolickie
             {
                 LoadingBarCollapsed(" jest odtwarzane...");
                 PlayButton.IsEnabled = false;
-                PauseButton.IsEnabled = true;              
+                PauseButton.IsEnabled = true;
             }
 
             else
             {
                 LoadingBarCollapsed("Nieznany status odtwarzacza.");
-            }           
+            }
         }
 
         private void EnterDown(object sender, KeyRoutedEventArgs e)
