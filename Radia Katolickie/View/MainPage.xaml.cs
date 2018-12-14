@@ -420,7 +420,7 @@ namespace Radia_Katolickie
             }
         }
 
-        private void Pivot_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Page_GotFocus(object sender, RoutedEventArgs e)
         {
             ChangeThemeLogo();
         }
