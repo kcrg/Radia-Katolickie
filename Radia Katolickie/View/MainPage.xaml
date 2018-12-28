@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" GotFocus="Page_GotFocus">
+    mc:Ignorable="d" GotFocus="Page_GotFocus" SizeChanged="Page_SizeChanged">
     <Page.BottomAppBar>
         <CommandBar x:Name="BottomCommandBar" DefaultLabelPosition="Right" Background="Transparent">
             <CommandBar.PrimaryCommands>
@@ -31,7 +31,7 @@
                                     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
                                     <Setter Property="IsTabStop" Value="True"/>
                                     <Setter Property="TabNavigation" Value="Cycle"/>
-                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"/>
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
                             <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.2.5.0"/>
@@ -50,7 +50,7 @@
 
             <CommandBar.CommandBarOverflowPresenterStyle>
                 <Style TargetType="CommandBarOverflowPresenter">
-                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
+                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"/>
                 </Style>
             </CommandBar.CommandBarOverflowPresenterStyle>
         </CommandBar>
@@ -67,7 +67,16 @@
     <Grid>
         <MediaElement x:Name="mediaElement" AudioCategory="BackgroundCapableMedia" AutoPlay="False" CurrentStateChanged="MediaElementStateChanged"/>
 
-        <Pivot Title="Radia Katolickie"  Margin="0,-5,0,5" SelectionChanged="Pivot_SelectionChanged" KeyDown="EnterDown">
+        <Grid Style="{StaticResource DragAreaGrid}"
+              x:Name="DragArea">
+
+            <Image Style="{StaticResource AppLogoImage}" 
+                   x:Name="AppLogoImage"/>
+
+            <TextBlock Style="{StaticResource AppTitleText}"/>
+        </Grid>
+
+        <Pivot x:Name="Pivot" SelectionChanged="Pivot_SelectionChanged" KeyDown="EnterDown">
             <PivotItem Header="Radio Maryja">
                 <Grid>
                     <Image x:Name="MaryjaLogo" Style="{StaticResource BasicImage}"/>

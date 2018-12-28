@@ -1,11 +1,13 @@
 ﻿using Radia_Katolickie.View.MessageDialoges;
 using System;
 using System.Net.NetworkInformation;
+using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
 using Windows.ApplicationModel.Store;
 using Windows.Media;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -25,7 +27,8 @@ namespace Radia_Katolickie
 
         private string RadioPageUri = "http://www.radiomaryja.pl/";
 
-        private BitmapImage MaryjaLogoLight,
+        private BitmapImage AppLogoLight,
+                            MaryjaLogoLight,
                             ViaLogoLight,
                             NiepokalanowLogoLight,
                             ProfetoLogoLight,
@@ -34,6 +37,7 @@ namespace Radia_Katolickie
                             FaraLogoLight,
                             ZamoscLogoLight,
 
+                            AppLogoDark,
                             MaryjaLogoDark,
                             ViaLogoDark,
                             NiepokalanowLogoDark,
@@ -59,6 +63,15 @@ namespace Radia_Katolickie
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
 
+            var CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            CoreTitleBar.ExtendViewIntoTitleBar = true;
+
+            Window.Current.SetTitleBar(DragArea);
+
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
             // Check if it is supported
             if (ApplicationView.GetForCurrentView().IsViewModeSupported(ApplicationViewMode.CompactOverlay))
             {
@@ -74,6 +87,7 @@ namespace Radia_Katolickie
 
         private void LoadImages()
         {
+            AppLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Square44x44Logo.scale-100.png"));
             MaryjaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoLight.png"));
             ViaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoLight.png"));
             NiepokalanowLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoLight.png"));
@@ -83,6 +97,7 @@ namespace Radia_Katolickie
             FaraLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Fara/Fara-logoLight.png"));
             ZamoscLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Zamosc/Zamosc-logoLight.png"));
 
+            AppLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Square44x44Logo.scale-100Dark.png"));
             MaryjaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoDark.png"));
             ViaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoDark.png"));
             NiepokalanowLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoDark.png"));
@@ -97,6 +112,7 @@ namespace Radia_Katolickie
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
+                AppLogoImage.Source = AppLogoLight;
                 MaryjaLogo.Source = MaryjaLogoLight;
                 ViaLogo.Source = ViaLogoLight;
                 NiepokalanowLogo.Source = NiepokalanowLogoLight;
@@ -109,6 +125,7 @@ namespace Radia_Katolickie
 
             else
             {
+                AppLogoImage.Source = AppLogoDark;
                 MaryjaLogo.Source = MaryjaLogoDark;
                 ViaLogo.Source = ViaLogoDark;
                 NiepokalanowLogo.Source = NiepokalanowLogoDark;
@@ -423,6 +440,25 @@ namespace Radia_Katolickie
         private void Page_GotFocus(object sender, RoutedEventArgs e)
         {
             ChangeThemeLogo();
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            switch (UIViewSettings.GetForCurrentView().UserInteractionMode)
+            {
+                case UserInteractionMode.Mouse:
+                    VisualStateManager.GoToState(this, "MouseLayout", true);
+                    DragArea.Visibility = Visibility.Visible;
+                    Pivot.Title = String.Empty;
+                    break;
+
+                case UserInteractionMode.Touch:
+                default:
+                    VisualStateManager.GoToState(this, "TouchLayout", true);
+                    DragArea.Visibility = Visibility.Collapsed;
+                    Pivot.Title = "Radia Katolickie";
+                    break;
+            }
         }
     }
 }
