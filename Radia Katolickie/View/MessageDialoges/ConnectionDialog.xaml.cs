@@ -9,7 +9,7 @@ namespace Radia_Katolickie.View.MessageDialoges
     {
         public ConnectionDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -19,7 +19,7 @@ namespace Radia_Katolickie.View.MessageDialoges
 
         private async void CheckButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
 
             bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
             if (isInternetConnected == false)
@@ -29,7 +29,7 @@ namespace Radia_Katolickie.View.MessageDialoges
             }
             else
             {
-                this.Hide();
+                Hide();
             }
         }
     }

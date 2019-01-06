@@ -20,7 +20,7 @@ namespace Radia_Katolickie
 {
     public sealed partial class MainPage : Page
     {
-        private SystemMediaTransportControls systemControls;
+        private readonly SystemMediaTransportControls systemControls;
 
         private string Source = "http://198.27.80.205:5946/stream";
         private string StationName = "Radio Maryja";
@@ -63,12 +63,12 @@ namespace Radia_Katolickie
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
 
-            var CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            CoreApplicationViewTitleBar CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             CoreTitleBar.ExtendViewIntoTitleBar = true;
 
             Window.Current.SetTitleBar(DragArea);
 
-            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
@@ -168,7 +168,7 @@ namespace Radia_Katolickie
 
         private async void LauncherUri(string url)
         {
-            var uriBing = new Uri(@url);
+            Uri uriBing = new Uri(@url);
             await Launcher.LaunchUriAsync(uriBing);
         }
 
@@ -334,7 +334,7 @@ namespace Radia_Katolickie
             }
         }
 
-        void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        private void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
         {
             switch (args.Button)
             {
@@ -449,7 +449,7 @@ namespace Radia_Katolickie
                 case UserInteractionMode.Mouse:
                     VisualStateManager.GoToState(this, "MouseLayout", true);
                     DragArea.Visibility = Visibility.Visible;
-                    Pivot.Title = String.Empty;
+                    Pivot.Title = string.Empty;
                     break;
 
                 case UserInteractionMode.Touch:
