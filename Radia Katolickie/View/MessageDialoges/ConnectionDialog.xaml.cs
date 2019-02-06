@@ -34,4 +34,3 @@ namespace Radia_Katolickie.View.MessageDialoges
         }
     }
 }
-

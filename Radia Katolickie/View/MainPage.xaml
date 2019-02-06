@@ -31,10 +31,10 @@
                                     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
                                     <Setter Property="IsTabStop" Value="True"/>
                                     <Setter Property="TabNavigation" Value="Cycle"/>
-                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"/>
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
-                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.2.5.0"/>
+                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.3.0.0"/>
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton>
@@ -50,7 +50,7 @@
 
             <CommandBar.CommandBarOverflowPresenterStyle>
                 <Style TargetType="CommandBarOverflowPresenter">
-                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicElementBrush}"/>
+                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
                 </Style>
             </CommandBar.CommandBarOverflowPresenterStyle>
         </CommandBar>
@@ -65,8 +65,6 @@
     </Page.Resources>
 
     <Grid>
-        <MediaElement x:Name="mediaElement" AudioCategory="BackgroundCapableMedia" AutoPlay="False" CurrentStateChanged="MediaElementStateChanged"/>
-
         <Grid Style="{StaticResource DragAreaGrid}"
               x:Name="DragArea">
 

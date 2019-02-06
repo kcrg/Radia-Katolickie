@@ -5,7 +5,10 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
 using Windows.ApplicationModel.Store;
+using Windows.Foundation;
 using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
@@ -13,19 +16,19 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Radia_Katolickie
 {
     public sealed partial class MainPage : Page
     {
-        private readonly SystemMediaTransportControls systemControls;
+        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
 
-        private string Source = "http://198.27.80.205:5946/stream";
+        private readonly SystemMediaTransportControls systemControls;
+        private Uri Source = new Uri("http://198.27.80.205:5946/stream");
         private string StationName = "Radio Maryja";
 
-        private string RadioPageUri = "http://www.radiomaryja.pl/";
+        private Uri RadioPageUri = new Uri("http://www.radiomaryja.pl/");
 
         private BitmapImage AppLogoLight,
                             MaryjaLogoLight,
@@ -46,7 +49,6 @@ namespace Radia_Katolickie
                             GlosLogoDark,
                             FaraLogoDark,
                             ZamoscLogoDark;
-
         public MainPage()
         {
             InitializeComponent();
@@ -82,6 +84,47 @@ namespace Radia_Katolickie
             {
                 MiniButton.Visibility = Visibility.Collapsed;
                 MaxButton.Visibility = Visibility.Collapsed;
+            }
+
+            mediaPlayer.CurrentStateChanged += MediaPlayer_StateChanged;
+        }
+
+        private async void MediaPlayer_StateChanged(MediaPlayer sender, object args)
+        {
+            if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Opening)
+            {
+                LoadingBarVisible(" jest ładowane...");
+            }
+
+            else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Buffering)
+            {
+                LoadingBarVisible(" jest buforowane...");
+            }
+
+            else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None)
+            {
+                LoadingBarCollapsed("Nieznany status odtwarzacza.");
+            }
+
+            else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+            {
+                LoadingBarCollapsed(" jest zapauzowane...");
+            }
+
+            else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
+            {
+                LoadingBarCollapsed(" jest odtwarzane...");
+
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
+                {
+                    PlayButton.IsEnabled = false;
+                    PauseButton.IsEnabled = true;
+                });
+            }
+
+            else
+            {
+                LoadingBarCollapsed("Nieznany status odtwarzacza.");
             }
         }
 
@@ -148,27 +191,33 @@ namespace Radia_Katolickie
             }
         }
 
-        private void LoadingBarVisible(string status)
+        private async void LoadingBarVisible(string status)
         {
-            LoadingBar.Visibility = Visibility.Visible;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
+            {
+                LoadingBar.Visibility = Visibility.Visible;
 
-            StatusTextBlock.Text = StationName + status;
-            PlayButton.IsEnabled = false;
-            PauseButton.IsEnabled = false;
+                StatusTextBlock.Text = StationName + status;
+                PlayButton.IsEnabled = false;
+                PauseButton.IsEnabled = false;
+            });
         }
 
-        private void LoadingBarCollapsed(string status)
+        private async void LoadingBarCollapsed(string status)
         {
-            LoadingBar.Visibility = Visibility.Collapsed;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
 
-            StatusTextBlock.Text = StationName + status;
-            PlayButton.IsEnabled = true;
-            PauseButton.IsEnabled = false;
+                StatusTextBlock.Text = StationName + status;
+                PlayButton.IsEnabled = true;
+                PauseButton.IsEnabled = false;
+            });
         }
 
-        private async void LauncherUri(string url)
+        private async void LauncherUri(Uri uri)
         {
-            Uri uriBing = new Uri(@url);
+            Uri uriBing = uri;
             await Launcher.LaunchUriAsync(uriBing);
         }
 
@@ -180,50 +229,9 @@ namespace Radia_Katolickie
             args.Request.Data.SetText("Aplikacja 'Radia Katolickie' umożliwia odtwarzanie stacji katolickich przez internet. Już teraz do pobrania z Microsoft Store na wszystkie urządzenia z Windows 10!");
         }
 
-        private void MediaElementStateChanged(object sender, RoutedEventArgs e)
-        {
-            if (mediaElement.CurrentState == MediaElementState.Opening)
-            {
-                LoadingBarVisible(" jest ładowane...");
-            }
-
-            else if (mediaElement.CurrentState == MediaElementState.Buffering)
-            {
-                LoadingBarVisible(" jest buforowane...");
-            }
-
-            else if (mediaElement.CurrentState == MediaElementState.Stopped)
-            {
-                LoadingBarCollapsed(" jest zatrzymane...");
-                PauseButton.IsEnabled = true;
-            }
-
-            else if (mediaElement.CurrentState == MediaElementState.Paused)
-            {
-                LoadingBarCollapsed(" jest zapauzowane...");
-            }
-
-            else if (mediaElement.CurrentState == MediaElementState.Closed)
-            {
-                LoadingBarCollapsed(" jest zamknięte...");
-            }
-
-            else if (mediaElement.CurrentState == MediaElementState.Playing)
-            {
-                LoadingBarCollapsed(" jest odtwarzane...");
-                PlayButton.IsEnabled = false;
-                PauseButton.IsEnabled = true;
-            }
-
-            else
-            {
-                LoadingBarCollapsed("Nieznany status odtwarzacza.");
-            }
-        }
-
         private void EnterDown(object sender, KeyRoutedEventArgs e)
         {
-            if (mediaElement.CurrentState == MediaElementState.Playing)
+            if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
             {
                 PauseMedia();
             }
@@ -248,8 +256,8 @@ namespace Radia_Katolickie
         private async void MiniButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-            compactOptions.CustomSize = new Windows.Foundation.Size(400, 160);
-            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+            compactOptions.CustomSize = new Size(300, 250);
+            _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
 
             StatusTextBlock.Visibility = Visibility.Collapsed;
             BottomCommandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Bottom;
@@ -266,7 +274,7 @@ namespace Radia_Katolickie
 
         private async void MaxButton_Click(object sender, RoutedEventArgs e)
         {
-            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+            _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
 
             StatusTextBlock.Visibility = Visibility.Visible;
             BottomCommandBar.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right;
@@ -278,12 +286,12 @@ namespace Radia_Katolickie
 
         private void RateButton_Click(object sender, RoutedEventArgs e)
         {
-            LauncherUri("ms-windows-store:reviewapp?appid=" + CurrentApp.AppId);
+            LauncherUri(new Uri("ms-windows-store:reviewapp?appid=" + CurrentApp.AppId));
         }
 
         private void FacebookButton_Click(object sender, RoutedEventArgs e)
         {
-            LauncherUri("https://www.facebook.com/VersatileSoftware");
+            LauncherUri(new Uri("https://www.facebook.com/VersatileSoftware"));
         }
 
         private async void EmailButton_Click(object sender, RoutedEventArgs e)
@@ -303,35 +311,12 @@ namespace Radia_Katolickie
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            LauncherUri(string.Format(@"ms-windows-store:publisher?name={0}", "Versatile Software"));
+            LauncherUri(new Uri(string.Format(@"ms-windows-store:publisher?name={0}", "Versatile Software")));
         }
 
         private void DonationButton_Click(object sender, RoutedEventArgs e)
         {
-            LauncherUri("https://tinyurl.com/DonateMohairApps");
-        }
-
-        ////////////////////////////////////////// BACKGROUND AUDIO //////////////////////////////////////////////
-
-        private void MediaElement_CurrentStateChanged(object sender, RoutedEventArgs e)
-        {
-            switch (mediaElement.CurrentState)
-            {
-                case MediaElementState.Playing:
-                    systemControls.PlaybackStatus = MediaPlaybackStatus.Playing;
-                    break;
-                case MediaElementState.Paused:
-                    systemControls.PlaybackStatus = MediaPlaybackStatus.Paused;
-                    break;
-                case MediaElementState.Stopped:
-                    systemControls.PlaybackStatus = MediaPlaybackStatus.Stopped;
-                    break;
-                case MediaElementState.Closed:
-                    systemControls.PlaybackStatus = MediaPlaybackStatus.Closed;
-                    break;
-                default:
-                    break;
-            }
+            LauncherUri(new Uri("https://tinyurl.com/DonateMohairApps"));
         }
 
         private void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
@@ -342,11 +327,9 @@ namespace Radia_Katolickie
                     PlayMedia();
                     break;
                 case SystemMediaTransportControlsButton.Pause:
-                    mediaElement.Source = new Uri(Source);
                     PauseMedia();
                     break;
                 case SystemMediaTransportControlsButton.Stop:
-                    mediaElement.Source = new Uri(Source);
                     StopMedia(); ;
                     break;
                 default:
@@ -356,10 +339,10 @@ namespace Radia_Katolickie
 
         private async void StopMedia()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                mediaElement.Stop();
-                mediaElement.Source = new Uri(Source);
+                mediaPlayer.Pause();
+                //mediaElement.Source = new Uri(Source);
             });
         }
 
@@ -367,72 +350,70 @@ namespace Radia_Katolickie
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                mediaElement.Play();
+                mediaPlayer.Play();
             });
         }
 
         private async void PauseMedia()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                mediaElement.Pause();
-                mediaElement.Source = new Uri(Source);
+                mediaPlayer.Pause();
             });
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PivotItem pivot = null;
-            pivot = (PivotItem)(sender as Pivot).SelectedItem;
+            PivotItem pivot = (PivotItem)(sender as Pivot).SelectedItem;
             switch (pivot.Header.ToString())
             {
                 case "Radio Maryja":
                     StationName = "Radio Maryja";
-                    Source = "http://198.27.80.205:5946/stream";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://www.radiomaryja.pl/";
+                    Source = new Uri("http://198.27.80.205:5946/stream");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://www.radiomaryja.pl/");
                     break;
                 case "Radio Via":
                     StationName = "Radio Via";
-                    Source = "http://62.133.128.18:8040/";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://radiovia.com.pl/";
+                    Source = new Uri("http://62.133.128.18:8040/");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://radiovia.com.pl/");
                     break;
                 case "Radio Niepokalanów":
                     StationName = "Radio Niepokalanów";
-                    Source = "http://88.199.169.10:7600/rn.mp3";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://radioniepokalanow.pl/";
+                    Source = new Uri("http://88.199.169.10:7600/rn.mp3");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://radioniepokalanow.pl/");
                     break;
                 case "Radio Profeto":
                     StationName = "Radio Profeto";
-                    Source = "http://151.80.24.114:80/streammq.mp3";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://radioprofeto.pl/";
+                    Source = new Uri("http://151.80.24.114:80/streammq.mp3");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://radioprofeto.pl/");
                     break;
                 case "Radio Nadzieja":
                     StationName = "Radio Nadzieja";
-                    Source = "http://s5.radiohost.pl:8600/";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "https://radionadzieja.pl/";
+                    Source = new Uri("http://s5.radiohost.pl:8600/");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("https://radionadzieja.pl/");
                     break;
                 case "Radio Głos":
                     StationName = "Radio Głos";
-                    Source = "http://87.204.92.180:8000/";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://www.radioglos.pl/";
+                    Source = new Uri("http://87.204.92.180:8000/");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://www.radioglos.pl/");
                     break;
                 case "Radio Fara":
                     StationName = "Radio Fara";
-                    Source = "http://62.133.128.22:8000/";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://przemyska.pl/radiofara/";
+                    Source = new Uri("http://62.133.128.22:8000/");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://przemyska.pl/radiofara/");
                     break;
                 case "Katolickie Radio Zamość":
                     StationName = "Katolickie Radio Zamość";
-                    Source = "http://posluchaj.krz.pl/";
-                    mediaElement.Source = new Uri(Source);
-                    RadioPageUri = "http://www.radiozamosc.pl/";
+                    Source = new Uri("http://posluchaj.krz.pl/");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://www.radiozamosc.pl/");
                     break;
             }
         }
