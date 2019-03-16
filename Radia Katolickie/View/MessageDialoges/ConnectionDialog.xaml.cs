@@ -12,20 +12,18 @@ namespace Radia_Katolickie.View.MessageDialoges
             InitializeComponent();
         }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        private void ExitButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Application.Current.Exit();
         }
 
-        private async void CheckButton_Click(object sender, RoutedEventArgs e)
+        private async void CheckButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Hide();
 
-            bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
-            if (isInternetConnected == false)
+            if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                ConnectionDialog Dialog = new ConnectionDialog();
-                await Dialog.ShowAsync();
+                await new ConnectionDialog().ShowAsync();
             }
             else
             {

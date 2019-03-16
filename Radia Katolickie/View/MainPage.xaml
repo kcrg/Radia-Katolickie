@@ -1,11 +1,11 @@
-﻿<Page 
-    Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}"
-    x:Class="Radia_Katolickie.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" GotFocus="Page_GotFocus" SizeChanged="Page_SizeChanged">
+﻿<Page Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+      x:Class="Radia_Katolickie.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d" GotFocus="Page_GotFocus" SizeChanged="Page_SizeChanged">
+    
     <Page.BottomAppBar>
         <CommandBar x:Name="BottomCommandBar" DefaultLabelPosition="Right" Background="Transparent">
             <CommandBar.PrimaryCommands>
@@ -25,16 +25,9 @@
                 <AppBarButton Icon="AllApps" Label="Informacje o aplikacji">
                     <Button.Flyout>
                         <Flyout>
-                            <Flyout.FlyoutPresenterStyle>
-                                <Style TargetType="FlyoutPresenter">
-                                    <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
-                                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-                                    <Setter Property="IsTabStop" Value="True"/>
-                                    <Setter Property="TabNavigation" Value="Cycle"/>
-                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
-                                </Style>
-                            </Flyout.FlyoutPresenterStyle>
-                            <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.3.0.0"/>
+                            <Flyout.Content>
+                                <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.3.1.0"/>
+                            </Flyout.Content>
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton>
@@ -64,65 +57,67 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
-        <Grid Style="{StaticResource DragAreaGrid}"
+    <Page.Content>
+        <Grid>
+            <Grid Style="{StaticResource DragAreaGrid}"
               x:Name="DragArea">
 
-            <Image Style="{StaticResource AppLogoImage}" 
+                <Image Style="{StaticResource AppLogoImage}" 
                    x:Name="AppLogoImage"/>
 
-            <TextBlock Style="{StaticResource AppTitleText}"/>
+                <TextBlock Style="{StaticResource AppTitleText}"/>
+            </Grid>
+
+            <Pivot x:Name="Pivot" SelectionChanged="Pivot_SelectionChanged" KeyDown="EnterDown">
+                <PivotItem Header="Radio Maryja">
+                    <Grid>
+                        <Image x:Name="MaryjaLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Radio Głos">
+                    <Grid>
+                        <Image x:Name="GlosLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Radio Nadzieja">
+                    <Grid>
+                        <Image x:Name="NadziejaLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Radio Niepokalanów">
+                    <Grid>
+                        <Image x:Name="NiepokalanowLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Radio Profeto">
+                    <Grid>
+                        <Image x:Name="ProfetoLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Radio Via">
+                    <Grid>
+                        <Image x:Name="ViaLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Radio Fara">
+                    <Grid>
+                        <Image x:Name="FaraLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="Katolickie Radio Zamość">
+                    <Grid>
+                        <Image x:Name="ZamoscLogo" Style="{StaticResource BasicImage}"/>
+                    </Grid>
+                </PivotItem>
+            </Pivot>
+            <ProgressBar x:Name="LoadingBar" Style="{StaticResource BasicProgressBar}"/>
         </Grid>
-
-        <Pivot x:Name="Pivot" SelectionChanged="Pivot_SelectionChanged" KeyDown="EnterDown">
-            <PivotItem Header="Radio Maryja">
-                <Grid>
-                    <Image x:Name="MaryjaLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Radio Głos">
-                <Grid>
-                    <Image x:Name="GlosLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Radio Nadzieja">
-                <Grid>
-                    <Image x:Name="NadziejaLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Radio Niepokalanów">
-                <Grid>
-                    <Image x:Name="NiepokalanowLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Radio Profeto">
-                <Grid>
-                    <Image x:Name="ProfetoLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Radio Via">
-                <Grid>
-                    <Image x:Name="ViaLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Radio Fara">
-                <Grid>
-                    <Image x:Name="FaraLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem Header="Katolickie Radio Zamość">
-                <Grid>
-                    <Image x:Name="ZamoscLogo" Style="{StaticResource BasicImage}"/>
-                </Grid>
-            </PivotItem>
-        </Pivot>
-        <ProgressBar x:Name="LoadingBar" Style="{StaticResource BasicProgressBar}"/>
-    </Grid>
+    </Page.Content>
 </Page>

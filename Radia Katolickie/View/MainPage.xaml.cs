@@ -182,12 +182,9 @@ namespace Radia_Katolickie
 
         private async void CheckInternetConnection()
         {
-            bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
-
-            if (isInternetConnected == false)
+            if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                ConnectionDialog Dialog = new ConnectionDialog();
-                await Dialog.ShowAsync();
+                await new ConnectionDialog().ShowAsync();
             }
         }
 
@@ -217,8 +214,7 @@ namespace Radia_Katolickie
 
         private async void LauncherUri(Uri uri)
         {
-            Uri uriBing = uri;
-            await Launcher.LaunchUriAsync(uriBing);
+            await Launcher.LaunchUriAsync(uri);
         }
 
         private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -330,7 +326,7 @@ namespace Radia_Katolickie
                     PauseMedia();
                     break;
                 case SystemMediaTransportControlsButton.Stop:
-                    StopMedia(); ;
+                    StopMedia();
                     break;
                 default:
                     break;

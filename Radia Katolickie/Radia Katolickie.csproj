@@ -21,7 +21,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>E1CCE6BC107CED12CA8C3761578D06316EF57A2F</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>4C26BABB87A9C1DDCBA2CA864EB01E56BB2FCBAB</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
@@ -114,8 +114,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Radia Katolickie_StoreKey.pfx" />
-    <None Include="Radia Katolickie_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Radio Fara\Fara-logoDark.png" />
@@ -132,7 +130,6 @@
     <Content Include="Assets\Images\Radio Profeto\Profeto-logoLight.png" />
     <Content Include="Assets\Images\Radio Via\Via-logoDark.png" />
     <Content Include="Assets\Images\Radio Via\Via-logoLight.png" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Images\Radio Zamosc\Zamosc-logoDark.png" />
     <Content Include="Assets\Images\Radio Zamosc\Zamosc-logoLight.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -181,8 +178,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <None Include="Package.xml" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
+    <None Include="Radia Katolickie_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -205,7 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.2</Version>
+      <Version>6.2.8</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
