@@ -2,6 +2,7 @@
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.System.Profile;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -12,6 +13,10 @@ namespace Radia_Katolickie
 {
     public sealed partial class App : Application
     {
+        public static bool RunningOnDesktop => AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop";
+        public static bool RunningOnXbox => AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
+        public static bool RunningOnMobile => AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile";
+
         public App()
         {
             InitializeComponent();
@@ -20,10 +25,13 @@ namespace Radia_Katolickie
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            if (RunningOnDesktop)
+            {
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+                ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                titleBar.ButtonBackgroundColor = Colors.Transparent;
+                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            }
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

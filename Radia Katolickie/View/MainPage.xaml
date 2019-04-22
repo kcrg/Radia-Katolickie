@@ -1,74 +1,103 @@
-﻿<Page Background="{ThemeResource SystemControlAcrylicWindowBrush}"
-      x:Class="Radia_Katolickie.MainPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d" GotFocus="Page_GotFocus" SizeChanged="Page_SizeChanged">
-    
+﻿<Page
+    x:Class="Radia_Katolickie.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    GotFocus="Page_GotFocus"
+    SizeChanged="Page_SizeChanged"
+    mc:Ignorable="d">
+    <!--  TODO: Reveal Highlight in CommandBar flyout  -->
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/AppStyles.xaml"/>
+    </Page.Resources>
+
     <Page.BottomAppBar>
-        <CommandBar x:Name="BottomCommandBar" DefaultLabelPosition="Right" Background="Transparent">
+        <CommandBar x:Name="BottomCommandBar"
+            Background="Transparent"
+            DefaultLabelPosition="Right">
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="PlayButton" Icon="Play" Label="Odtwórz" Click="PlayButton_Click"/>
-                <AppBarButton x:Name="PauseButton" Icon="Pause" Label="Zapauzuj" Click="PauseButton_Click"/>
+                <AppBarButton x:Name="PlayButton"
+                    Click="PlayButton_Click"
+                    Icon="Play"
+                    Label="Odtwórz"/>
+                <AppBarButton x:Name="PauseButton"
+                    Click="PauseButton_Click"
+                    Icon="Pause"
+                    Label="Zapauzuj"/>
                 <AppBarSeparator/>
-                <AppBarButton x:Name="MiniButton" Icon="BackToWindow" Label="Mini odtwarzacz" Click="MiniButton_Click"/>
-                <AppBarButton x:Name="MaxButton" Icon="FullScreen" Label="Domyślny odtwarzacz" Click="MaxButton_Click"/>
+                <AppBarButton x:Name="MiniButton"
+                    Click="MiniButton_Click"
+                    Icon="BackToWindow"
+                    Label="Mini odtwarzacz"/>
+                <AppBarButton x:Name="MaxButton"
+                    Click="MaxButton_Click"
+                    Icon="FullScreen"
+                    Label="Domyślny odtwarzacz"/>
             </CommandBar.PrimaryCommands>
 
             <CommandBar.SecondaryCommands>
-                <AppBarButton Icon="Globe" Label="Strona radia" Click="RadioPageButton_Click"/>
+                <AppBarButton
+                    Click="RadioPageButton_Click"
+                    Icon="Globe"
+                    Label="Strona radia"/>
                 <AppBarSeparator/>
-                <AppBarButton Icon="Share" Label="Udostępnij aplikację" Click="ShareButton_Click"/>
-                <AppBarButton Icon="OutlineStar" Label="Oceń aplikację" Click="RateButton_Click"/>
-                <AppBarButton Icon="SwitchApps" Label="Więcej moich aplikacji" Click="MoreButton_Click"/>
+                <AppBarButton
+                    Click="ShareButton_Click"
+                    Icon="Share"
+                    Label="Udostępnij aplikację"/>
+                <AppBarButton
+                    Click="RateButton_Click"
+                    Icon="OutlineStar"
+                    Label="Oceń aplikację"/>
+                <AppBarButton
+                    Click="MoreButton_Click"
+                    Icon="SwitchApps"
+                    Label="Więcej moich aplikacji"/>
                 <AppBarButton Icon="AllApps" Label="Informacje o aplikacji">
-                    <Button.Flyout>
-                        <Flyout>
+                    <AppBarButton.Flyout>
+                        <Flyout Windows10version1903:ShouldConstrainToRootBounds="False">
                             <Flyout.Content>
-                                <TextBlock TextWrapping="Wrap" Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.3.1.0"/>
+                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.5.0.0" TextWrapping="Wrap"/>
                             </Flyout.Content>
                         </Flyout>
-                    </Button.Flyout>
+                    </AppBarButton.Flyout>
                 </AppBarButton>
                 <AppBarSeparator/>
-                <AppBarButton Icon="Mail" Label="Wyślij opinie" Click="EmailButton_Click"/>
-                <AppBarButton Icon="Like" Label="Fanpage na facebooku" Click="FacebookButton_Click"/>
-                <AppBarButton Icon="Send" Label="Wesprzyj nas &lt;3" Click="DonationButton_Click"/>
+                <AppBarButton
+                    Click="EmailButton_Click"
+                    Icon="Mail"
+                    Label="Wyślij opinie"/>
+                <AppBarButton
+                    Click="FacebookButton_Click"
+                    Icon="Like"
+                    Label="Fanpage na facebooku"/>
+                <AppBarButton
+                    Click="DonationButton_Click"
+                    Icon="Send"
+                    Label="Wesprzyj nas &lt;3"/>
             </CommandBar.SecondaryCommands>
 
             <CommandBar.Content>
                 <TextBlock x:Name="StatusTextBlock" Margin="12,10"/>
             </CommandBar.Content>
-
-            <CommandBar.CommandBarOverflowPresenterStyle>
-                <Style TargetType="CommandBarOverflowPresenter">
-                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeLowAcrylicWindowBrush}"/>
-                </Style>
-            </CommandBar.CommandBarOverflowPresenterStyle>
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/AppStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-
     <Page.Content>
         <Grid>
-            <Grid Style="{StaticResource DragAreaGrid}"
-              x:Name="DragArea">
+            <Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
 
-                <Image Style="{StaticResource AppLogoImage}" 
-                   x:Name="AppLogoImage"/>
+                <Image x:Name="AppLogoImage" Style="{StaticResource AppLogoImage}"/>
 
                 <TextBlock Style="{StaticResource AppTitleText}"/>
             </Grid>
 
-            <Pivot x:Name="Pivot" SelectionChanged="Pivot_SelectionChanged" KeyDown="EnterDown">
+            <Pivot x:Name="Pivot"
+                KeyDown="EnterDown"
+                SelectionChanged="Pivot_SelectionChanged">
                 <PivotItem Header="Radio Maryja">
                     <Grid>
                         <Image x:Name="MaryjaLogo" Style="{StaticResource BasicImage}"/>

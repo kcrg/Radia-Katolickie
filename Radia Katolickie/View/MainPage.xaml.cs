@@ -103,17 +103,17 @@ namespace Radia_Katolickie
 
             else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None)
             {
-                LoadingBarCollapsed("Nieznany status odtwarzacza.");
+                LoadingBarCollapsed(" jest wyłączone.", false);
             }
 
             else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
             {
-                LoadingBarCollapsed(" jest zapauzowane...");
+                LoadingBarCollapsed(" jest zapauzowane...", true);
             }
 
             else if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
             {
-                LoadingBarCollapsed(" jest odtwarzane...");
+                LoadingBarCollapsed(" jest odtwarzane...", true);
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
                 {
@@ -124,13 +124,13 @@ namespace Radia_Katolickie
 
             else
             {
-                LoadingBarCollapsed("Nieznany status odtwarzacza.");
+                LoadingBarCollapsed(" ma nieznany status.", false);
             }
         }
 
         private void LoadImages()
         {
-            AppLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Square44x44Logo.scale-100.png"));
+            AppLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Titlebar/AppLogoLight.png"));
             MaryjaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoLight.png"));
             ViaLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoLight.png"));
             NiepokalanowLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoLight.png"));
@@ -140,7 +140,7 @@ namespace Radia_Katolickie
             FaraLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Fara/Fara-logoLight.png"));
             ZamoscLogoLight = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Zamosc/Zamosc-logoLight.png"));
 
-            AppLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Square44x44Logo.scale-100Dark.png"));
+            AppLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Titlebar/AppLogoDark.png"));
             MaryjaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Maryja/Maryja-logoDark.png"));
             ViaLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Via/Via-logoDark.png"));
             NiepokalanowLogoDark = new BitmapImage(new Uri("ms-appx:///Assets/Images/Radio Niepokalanow/Niepokalanow-logoDark.png"));
@@ -200,15 +200,24 @@ namespace Radia_Katolickie
             });
         }
 
-        private async void LoadingBarCollapsed(string status)
+        private async void LoadingBarCollapsed(string status, bool IsEnable)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
             {
                 LoadingBar.Visibility = Visibility.Collapsed;
 
                 StatusTextBlock.Text = StationName + status;
-                PlayButton.IsEnabled = true;
-                PauseButton.IsEnabled = false;
+
+                if (IsEnable)
+                {
+                    PlayButton.IsEnabled = true;
+                    PauseButton.IsEnabled = false;
+                }
+                else
+                {
+                    PlayButton.IsEnabled = false;
+                    PauseButton.IsEnabled = false;
+                }
             });
         }
 
