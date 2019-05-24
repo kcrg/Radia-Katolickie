@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RadiaKatolickie.Views;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -9,7 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Radia_Katolickie
+namespace RadiaKatolickie
 {
     public sealed partial class App : Application
     {

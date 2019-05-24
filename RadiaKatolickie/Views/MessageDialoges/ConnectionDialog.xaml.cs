@@ -3,7 +3,7 @@ using System.Net.NetworkInformation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Radia_Katolickie.View.MessageDialoges
+namespace RadiaKatolickie.Views.MessageDialoges
 {
     public sealed partial class ConnectionDialog : ContentDialog
     {

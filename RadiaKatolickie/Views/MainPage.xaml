@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Radia_Katolickie.MainPage"
+    x:Class="RadiaKatolickie.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
@@ -60,7 +60,7 @@
                     <AppBarButton.Flyout>
                         <Flyout Windows10version1903:ShouldConstrainToRootBounds="False">
                             <Flyout.Content>
-                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.5.0.0" TextWrapping="Wrap"/>
+                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.5.1.0" TextWrapping="Wrap"/>
                             </Flyout.Content>
                         </Flyout>
                     </AppBarButton.Flyout>
@@ -89,9 +89,7 @@
     <Page.Content>
         <Grid>
             <Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
-
                 <Image x:Name="AppLogoImage" Style="{StaticResource AppLogoImage}"/>
-
                 <TextBlock Style="{StaticResource AppTitleText}"/>
             </Grid>
 

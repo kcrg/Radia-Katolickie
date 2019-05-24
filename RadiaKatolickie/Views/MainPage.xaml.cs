@@ -1,4 +1,4 @@
-﻿using Radia_Katolickie.View.MessageDialoges;
+﻿using RadiaKatolickie.Views.MessageDialoges;
 using System;
 using System.Net.NetworkInformation;
 using Windows.ApplicationModel.Core;
@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Radia_Katolickie
+namespace RadiaKatolickie.Views
 {
     public sealed partial class MainPage : Page
     {

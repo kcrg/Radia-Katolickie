@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28531.58
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radia Katolickie", "Radia Katolickie\Radia Katolickie.csproj", "{E229D85D-4D9F-4FCC-A6B5-10958BD21640}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiaKatolickie", "RadiaKatolickie\RadiaKatolickie.csproj", "{E229D85D-4D9F-4FCC-A6B5-10958BD21640}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
