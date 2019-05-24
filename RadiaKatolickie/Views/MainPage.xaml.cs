@@ -1,7 +1,6 @@
 ﻿using RadiaKatolickie.Views.MessageDialoges;
 using System;
 using System.Net.NetworkInformation;
-using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
 using Windows.ApplicationModel.Store;
@@ -10,7 +9,6 @@ using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -65,15 +63,6 @@ namespace RadiaKatolickie.Views
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
 
-            CoreApplicationViewTitleBar CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            CoreTitleBar.ExtendViewIntoTitleBar = true;
-
-            Window.Current.SetTitleBar(DragArea);
-
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
             // Check if it is supported
             if (ApplicationView.GetForCurrentView().IsViewModeSupported(ApplicationViewMode.CompactOverlay))
             {
@@ -84,6 +73,11 @@ namespace RadiaKatolickie.Views
             {
                 MiniButton.Visibility = Visibility.Collapsed;
                 MaxButton.Visibility = Visibility.Collapsed;
+            }
+
+            if (App.RunningOnXbox)
+            {
+                Pivot.IsHeaderItemsCarouselEnabled = false;
             }
 
             mediaPlayer.CurrentStateChanged += MediaPlayer_StateChanged;

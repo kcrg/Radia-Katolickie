@@ -44,9 +44,10 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
-    <!--<Style x:Key="AppBarButtonBasic"
+    <Style x:Key="AppBarButtonBasic"
         BasedOn="{StaticResource AppBarButtonRevealStyle}"
         TargetType="AppBarButton">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    </Style>-->
+        <Setter Property="Width" Value="Auto"/>
+    </Style>
 </ResourceDictionary>

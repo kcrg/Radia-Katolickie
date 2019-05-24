@@ -9,9 +9,13 @@
     GotFocus="Page_GotFocus"
     SizeChanged="Page_SizeChanged"
     mc:Ignorable="d">
-    <!--  TODO: Reveal Highlight in CommandBar flyout  -->
     <Page.Resources>
-        <ResourceDictionary Source="ms-appx:///Styles/AppStyles.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Microsoft.UI.Xaml/DensityStyles/Compact.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/AppStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Page.BottomAppBar>
@@ -22,45 +26,56 @@
                 <AppBarButton x:Name="PlayButton"
                     Click="PlayButton_Click"
                     Icon="Play"
-                    Label="Odtwórz"/>
+                    Label="Odtwórz"
+                    ToolTipService.ToolTip="Kliknij aby odtworzyć"/>
                 <AppBarButton x:Name="PauseButton"
                     Click="PauseButton_Click"
                     Icon="Pause"
-                    Label="Zapauzuj"/>
+                    Label="Zapauzuj"
+                    ToolTipService.ToolTip="Kliknij aby zapauzować"/>
                 <AppBarSeparator/>
                 <AppBarButton x:Name="MiniButton"
                     Click="MiniButton_Click"
                     Icon="BackToWindow"
-                    Label="Mini odtwarzacz"/>
+                    Label="Mini odtwarzacz"
+                    ToolTipService.ToolTip="Kliknij aby włączyć tryb mini"/>
                 <AppBarButton x:Name="MaxButton"
                     Click="MaxButton_Click"
                     Icon="FullScreen"
-                    Label="Domyślny odtwarzacz"/>
+                    Label="Domyślny odtwarzacz"
+                    ToolTipService.ToolTip="Kliknij aby wyjść z trybu mini"/>
             </CommandBar.PrimaryCommands>
 
             <CommandBar.SecondaryCommands>
                 <AppBarButton
                     Click="RadioPageButton_Click"
                     Icon="Globe"
-                    Label="Strona radia"/>
+                    Label="Strona radia"
+                    Style="{StaticResource AppBarButtonBasic}"/>
                 <AppBarSeparator/>
                 <AppBarButton
                     Click="ShareButton_Click"
                     Icon="Share"
-                    Label="Udostępnij aplikację"/>
+                    Label="Udostępnij aplikację"
+                    Style="{StaticResource AppBarButtonBasic}"/>
                 <AppBarButton
                     Click="RateButton_Click"
                     Icon="OutlineStar"
-                    Label="Oceń aplikację"/>
+                    Label="Oceń aplikację"
+                    Style="{StaticResource AppBarButtonBasic}"/>
                 <AppBarButton
                     Click="MoreButton_Click"
                     Icon="SwitchApps"
-                    Label="Więcej moich aplikacji"/>
-                <AppBarButton Icon="AllApps" Label="Informacje o aplikacji">
+                    Label="Więcej moich aplikacji"
+                    Style="{StaticResource AppBarButtonBasic}"/>
+                <AppBarButton
+                    Icon="AllApps"
+                    Label="Informacje o aplikacji"
+                    Style="{StaticResource AppBarButtonBasic}">
                     <AppBarButton.Flyout>
                         <Flyout Windows10version1903:ShouldConstrainToRootBounds="False">
                             <Flyout.Content>
-                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.5.1.0" TextWrapping="Wrap"/>
+                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.6.0.0" TextWrapping="Wrap"/>
                             </Flyout.Content>
                         </Flyout>
                     </AppBarButton.Flyout>
@@ -69,15 +84,18 @@
                 <AppBarButton
                     Click="EmailButton_Click"
                     Icon="Mail"
-                    Label="Wyślij opinie"/>
+                    Label="Kontakt z deweloperem"
+                    Style="{StaticResource AppBarButtonBasic}"/>
                 <AppBarButton
                     Click="FacebookButton_Click"
                     Icon="Like"
-                    Label="Fanpage na facebooku"/>
+                    Label="Fanpage na facebooku"
+                    Style="{StaticResource AppBarButtonBasic}"/>
                 <AppBarButton
                     Click="DonationButton_Click"
                     Icon="Send"
-                    Label="Wesprzyj nas &lt;3"/>
+                    Label="Wesprzyj nas &lt;3"
+                    Style="{StaticResource AppBarButtonBasic}"/>
             </CommandBar.SecondaryCommands>
 
             <CommandBar.Content>
@@ -94,6 +112,7 @@
             </Grid>
 
             <Pivot x:Name="Pivot"
+                IsHeaderItemsCarouselEnabled="False"
                 KeyDown="EnterDown"
                 SelectionChanged="Pivot_SelectionChanged">
                 <PivotItem Header="Radio Maryja">

@@ -15,8 +15,6 @@
     mc:Ignorable="d">
 
     <ContentDialog.Content>
-        <Grid>
-            <TextBlock Text="Aby aplikacja działała, wymagane jest połączenie z internetem.&#x0a;Sprawdź połączenie i spróbuj ponownie." TextWrapping="Wrap"/>
-        </Grid>
+        <TextBlock Text="Aby aplikacja działała, wymagane jest połączenie z internetem.&#x0a;Sprawdź połączenie i spróbuj ponownie." TextWrapping="Wrap"/>
     </ContentDialog.Content>
 </ContentDialog>
