@@ -2,4 +2,4 @@
 https://www.microsoft.com/pl-pl/p/radia-katolickie/9ntp1fnvnhmw
 
 
-![alt text](https://scontent-waw1-1.xx.fbcdn.net/v/t1.0-9/38391295_1319890058114123_3888986740706246656_o.png?_nc_cat=103&_nc_ht=scontent-waw1-1.xx&oh=42ece072049a38cee4df592f1bf33f34&oe=5CBC8357)
+![alt text](https://store-images.s-microsoft.com/image/apps.4666.14414813128225846.cb8b620c-3198-4889-ad89-27b901928be7.7d3fc1b8-ab4e-4030-9332-a331d6c60659)
