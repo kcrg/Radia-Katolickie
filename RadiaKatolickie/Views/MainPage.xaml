@@ -1,169 +1,176 @@
-﻿<muxc:Page x:Class="RadiaKatolickie.Views.MainPage"
+﻿<Page
+    x:Class="RadiaKatolickie.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Windows.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}"
     GotFocus="Page_GotFocus"
     SizeChanged="Page_SizeChanged"
     mc:Ignorable="d">
-    <muxc:Page.Resources>
+    <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Microsoft.UI.Xaml/DensityStyles/Compact.xaml"/>
-                <ResourceDictionary Source="ms-appx:///Styles/AppStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Microsoft.UI.Xaml/DensityStyles/Compact.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/AppStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </muxc:Page.Resources>
+    </Page.Resources>
 
-    <muxc:Page.BottomAppBar>
-        <muxc:CommandBar x:Name="BottomCommandBar"
+    <Page.BottomAppBar>
+        <CommandBar
+            x:Name="BottomCommandBar"
             Background="Transparent"
             DefaultLabelPosition="Right">
-            <muxc:CommandBar.PrimaryCommands>
-                <muxc:AppBarButton x:Name="PlayButton"
+            <CommandBar.PrimaryCommands>
+                <AppBarButton
+                    x:Name="PlayButton"
                     Click="PlayButton_Click"
                     Icon="Play"
                     Label="Odtwórz"
-                    ToolTipService.ToolTip="Kliknij aby odtworzyć"/>
-                <muxc:AppBarButton x:Name="PauseButton"
+                    ToolTipService.ToolTip="Kliknij aby odtworzyć" />
+                <AppBarButton
+                    x:Name="PauseButton"
                     Click="PauseButton_Click"
                     Icon="Pause"
                     Label="Zapauzuj"
-                    ToolTipService.ToolTip="Kliknij aby zapauzować"/>
-                <muxc:AppBarSeparator/>
-                <muxc:AppBarButton x:Name="MiniButton"
+                    ToolTipService.ToolTip="Kliknij aby zapauzować" />
+                <AppBarSeparator />
+                <AppBarButton
+                    x:Name="MiniButton"
                     Click="MiniButton_Click"
                     Icon="BackToWindow"
                     Label="Mini odtwarzacz"
-                    ToolTipService.ToolTip="Kliknij aby włączyć tryb mini"/>
-                <muxc:AppBarButton x:Name="MaxButton"
+                    ToolTipService.ToolTip="Kliknij aby włączyć tryb mini" />
+                <AppBarButton
+                    x:Name="MaxButton"
                     Click="MaxButton_Click"
                     Icon="FullScreen"
                     Label="Domyślny odtwarzacz"
-                    ToolTipService.ToolTip="Kliknij aby wyjść z trybu mini"/>
-            </muxc:CommandBar.PrimaryCommands>
+                    ToolTipService.ToolTip="Kliknij aby wyjść z trybu mini" />
+            </CommandBar.PrimaryCommands>
 
-            <muxc:CommandBar.SecondaryCommands>
-                <muxc:AppBarButton
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
                     Click="RadioPageButton_Click"
                     Icon="Globe"
                     Label="Strona radia"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-                <muxc:AppBarSeparator/>
-                <muxc:AppBarButton
+                    Style="{StaticResource AppBarButtonBasic}" />
+                <AppBarSeparator />
+                <AppBarButton
                     Click="ShareButton_Click"
                     Icon="Share"
                     Label="Udostępnij aplikację"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-                <muxc:AppBarButton
+                    Style="{StaticResource AppBarButtonBasic}" />
+                <AppBarButton
                     Click="RateButton_Click"
                     Icon="OutlineStar"
                     Label="Oceń aplikację"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-                <muxc:AppBarButton
+                    Style="{StaticResource AppBarButtonBasic}" />
+                <AppBarButton
                     Click="MoreButton_Click"
                     Icon="SwitchApps"
                     Label="Więcej moich aplikacji"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-                <muxc:AppBarButton
+                    Style="{StaticResource AppBarButtonBasic}" />
+                <AppBarButton
                     Icon="AllApps"
                     Label="Informacje o aplikacji"
                     Style="{StaticResource AppBarButtonBasic}">
-                    <muxc:AppBarButton.Flyout>
+                    <AppBarButton.Flyout>
                         <Flyout Windows10version1903:ShouldConstrainToRootBounds="False">
-                            <muxc:Flyout.Content>
-                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.6.0.0" TextWrapping="Wrap"/>
-                            </muxc:Flyout.Content>
+                            <Flyout.Content>
+                                <TextBlock Text="Aplikacja stworzona przez Kacpra Trynieckiego.&#x0a;Stworzona w UWP, przy użyciu języka C# i technologii XAML. &#x0a;Wersja: 1.6.0.0" TextWrapping="Wrap" />
+                            </Flyout.Content>
                         </Flyout>
-                    </muxc:AppBarButton.Flyout>
-                </muxc:AppBarButton>
-                <muxc:AppBarSeparator/>
-                <muxc:AppBarButton
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator />
+                <AppBarButton
                     Click="EmailButton_Click"
                     Icon="Mail"
                     Label="Kontakt z deweloperem"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-                <muxc:AppBarButton
+                    Style="{StaticResource AppBarButtonBasic}" />
+                <AppBarButton
                     Click="FacebookButton_Click"
                     Icon="Like"
                     Label="Fanpage na facebooku"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-                <muxc:AppBarButton
+                    Style="{StaticResource AppBarButtonBasic}" />
+                <AppBarButton
                     Click="DonationButton_Click"
                     Icon="Send"
                     Label="Wesprzyj nas &lt;3"
-                    Style="{StaticResource AppBarButtonBasic}"/>
-            </muxc:CommandBar.SecondaryCommands>
+                    Style="{StaticResource AppBarButtonBasic}" />
+            </CommandBar.SecondaryCommands>
 
-            <muxc:CommandBar.Content>
-                <muxc:TextBlock x:Name="StatusTextBlock" Margin="12,10"/>
-            </muxc:CommandBar.Content>
-        </muxc:CommandBar>
-    </muxc:Page.BottomAppBar>
+            <CommandBar.Content>
+                <TextBlock x:Name="StatusTextBlock" Margin="12,10" />
+            </CommandBar.Content>
+        </CommandBar>
+    </Page.BottomAppBar>
 
-    <muxc:Page.Content>
-        <muxc:Grid>
-            <muxc:Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
-                <muxc:Image x:Name="AppLogoImage" Style="{StaticResource AppLogoImage}"/>
-                <muxc:TextBlock Style="{StaticResource AppTitleText}"/>
-            </muxc:Grid>
+    <Page.Content>
+        <Grid>
+            <Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
+                <Image x:Name="AppLogoImage" Style="{StaticResource AppLogoImage}" />
+                <TextBlock Style="{StaticResource AppTitleText}" />
+            </Grid>
 
-            <muxc:Pivot x:Name="Pivot"
+            <Pivot
+                x:Name="MainPivot"
                 IsHeaderItemsCarouselEnabled="False"
                 KeyDown="EnterDown"
                 SelectionChanged="Pivot_SelectionChanged">
-                <muxc:PivotItem Header="Radio Maryja">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="MaryjaLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Maryja">
+                    <Grid>
+                        <Image x:Name="MaryjaLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Radio Głos">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="GlosLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Głos">
+                    <Grid>
+                        <Image x:Name="GlosLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Radio Nadzieja">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="NadziejaLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Nadzieja">
+                    <Grid>
+                        <Image x:Name="NadziejaLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Radio Niepokalanów">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="NiepokalanowLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Niepokalanów">
+                    <Grid>
+                        <Image x:Name="NiepokalanowLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Radio Profeto">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="ProfetoLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Profeto">
+                    <Grid>
+                        <Image x:Name="ProfetoLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Radio Via">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="ViaLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Via">
+                    <Grid>
+                        <Image x:Name="ViaLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Radio Fara">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="FaraLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
+                <PivotItem Header="Radio Fara">
+                    <Grid>
+                        <Image x:Name="FaraLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
 
-                <muxc:PivotItem Header="Katolickie Radio Zamość">
-                    <muxc:Grid>
-                        <muxc:Image x:Name="ZamoscLogo" Style="{StaticResource BasicImage}"/>
-                    </muxc:Grid>
-                </muxc:PivotItem>
-            </muxc:Pivot>
-            <muxc:ProgressBar x:Name="LoadingBar" Style="{StaticResource BasicProgressBar}"/>
-        </muxc:Grid>
-    </muxc:Page.Content>
-</muxc:Page>
+                <PivotItem Header="Katolickie Radio Zamość">
+                    <Grid>
+                        <Image x:Name="ZamoscLogo" Style="{StaticResource BasicImage}" />
+                    </Grid>
+                </PivotItem>
+            </Pivot>
+            <muxc:ProgressBar x:Name="LoadingBar" Style="{StaticResource BasicProgressBar}" />
+        </Grid>
+    </Page.Content>
+</Page>

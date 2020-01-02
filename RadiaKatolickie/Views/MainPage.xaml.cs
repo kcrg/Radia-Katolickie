@@ -77,7 +77,7 @@ namespace RadiaKatolickie.Views
 
             if (App.RunningOnXbox)
             {
-                Pivot.IsHeaderItemsCarouselEnabled = false;
+                MainPivot.IsHeaderItemsCarouselEnabled = false;
             }
 
             mediaPlayer.CurrentStateChanged += MediaPlayer_StateChanged;
@@ -241,7 +241,6 @@ namespace RadiaKatolickie.Views
         }
 
         /////////////////////////// APPBAR BUTTONS ///////////////////////////////////////   
-
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             PlayMedia();
@@ -414,6 +413,12 @@ namespace RadiaKatolickie.Views
                     mediaPlayer.Source = MediaSource.CreateFromUri(Source);
                     RadioPageUri = new Uri("http://www.radiozamosc.pl/");
                     break;
+                default:
+                    StationName = "Radio Maryja";
+                    Source = new Uri("http://198.27.80.205:5946/stream");
+                    mediaPlayer.Source = MediaSource.CreateFromUri(Source);
+                    RadioPageUri = new Uri("http://www.radiomaryja.pl/");
+                    break;
             }
         }
 
@@ -429,14 +434,17 @@ namespace RadiaKatolickie.Views
                 case UserInteractionMode.Mouse:
                     VisualStateManager.GoToState(this, "MouseLayout", true);
                     DragArea.Visibility = Visibility.Visible;
-                    Pivot.Title = string.Empty;
+                    MainPivot.Title = string.Empty;
                     break;
-
                 case UserInteractionMode.Touch:
-                default:
                     VisualStateManager.GoToState(this, "TouchLayout", true);
                     DragArea.Visibility = Visibility.Collapsed;
-                    Pivot.Title = "Radia Katolickie";
+                    MainPivot.Title = "Radia Katolickie";
+                    break;
+                default:
+                    VisualStateManager.GoToState(this, "MouseLayout", true);
+                    DragArea.Visibility = Visibility.Visible;
+                    MainPivot.Title = string.Empty;
                     break;
             }
         }
