@@ -23,7 +23,7 @@ namespace RadiaKatolickie.Views
         private readonly MediaPlayer mediaPlayer = new MediaPlayer();
 
         private readonly SystemMediaTransportControls systemControls;
-        private Uri Source = new Uri("http://198.27.80.205:5946/stream");
+        private Uri Source = new Uri("http://51.68.135.155:80/stream");
         private string StationName = "Radio Maryja";
 
         private Uri RadioPageUri = new Uri("http://www.radiomaryja.pl/");
@@ -367,7 +367,7 @@ namespace RadiaKatolickie.Views
             {
                 case "Radio Maryja":
                     StationName = "Radio Maryja";
-                    Source = new Uri("http://198.27.80.205:5946/stream");
+                    Source = new Uri("http://51.68.135.155:80/stream");
                     mediaPlayer.Source = MediaSource.CreateFromUri(Source);
                     RadioPageUri = new Uri("http://www.radiomaryja.pl/");
                     break;
@@ -391,7 +391,7 @@ namespace RadiaKatolickie.Views
                     break;
                 case "Radio Nadzieja":
                     StationName = "Radio Nadzieja";
-                    Source = new Uri("http://s5.radiohost.pl:8600/");
+                    Source = new Uri("http://streaming01.technologicznie.net:8000/");
                     mediaPlayer.Source = MediaSource.CreateFromUri(Source);
                     RadioPageUri = new Uri("https://radionadzieja.pl/");
                     break;

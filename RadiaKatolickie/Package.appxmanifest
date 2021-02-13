@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp uap3 uap2 uap5">
-  <Identity Name="4792MohairApp.RadiaKatolickie" Publisher="CN=91FC2611-0BE1-4BF6-BF67-9AC292856A90" Version="1.6.0.0" />
+  <Identity Name="4792MohairApp.RadiaKatolickie" Publisher="CN=91FC2611-0BE1-4BF6-BF67-9AC292856A90" Version="1.7.0.0" />
   <mp:PhoneIdentity PhoneProductId="cf23fc9d-f033-4c75-819f-49d1d7e67fe4" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Radia Katolickie</DisplayName>
